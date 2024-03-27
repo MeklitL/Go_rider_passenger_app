@@ -51,7 +51,7 @@ dependencies:
   uuid: 
   flutter_timezone: ^1.0.7
   flutter_app_badger: ^1.5.0
-  mailer: ^6.1.0
+  
   lottie: ^2.7.0
    
 
