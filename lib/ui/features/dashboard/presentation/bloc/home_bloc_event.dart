@@ -94,3 +94,12 @@ class Logout extends HomePageBlocEvent {
   @override
   List<Object?> get props => [context];
 }
+
+class InviteFriend extends HomePageBlocEvent {
+  BuildContext context;
+
+  InviteFriend(this.context);
+
+  @override
+  List<Object?> get props => [context];
+}

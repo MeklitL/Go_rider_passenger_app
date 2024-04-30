@@ -76,7 +76,8 @@ Widget _drawerList(BuildContext context) {
           context,
           svgPath: 'assets/svgs/invite.svg',
           name: AppStrings.invite,
-          ontap: () {},
+          ontap: () =>
+              BlocProvider.of<HomePageBloc>(context).add(InviteFriend(context)),
         ),
         SizedBox(height: 20.h),
         _drawerItem(

@@ -44,6 +44,7 @@ dependencies:
 
   
   firebase_storage: ^11.6.0
+  firebase_dynamic_links: 
   fluttertoast: ^8.2.4
   flutter_easyloading: ^3.0.5
   email_validator: 
@@ -51,6 +52,7 @@ dependencies:
   uuid: 
   flutter_timezone: ^1.0.7
   flutter_app_badger: ^1.5.0
+  share_plus: 
   
   lottie: ^2.7.0
    

@@ -4,6 +4,7 @@ import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_rider/app/helper/dynamic_link_helper.dart';
 import 'package:go_rider/app/resouces/app_logger.dart';
 import 'package:go_rider/app/resouces/app_router.dart';
 import 'package:go_rider/app/resouces/navigation_services.dart';
@@ -29,6 +30,12 @@ class GoRider extends StatefulWidget {
 }
 
 class _GoRiderState extends State<GoRider> {
+  @override
+  void initState() {
+    DynamicLinkHelper().initDynamicLink();
+    super.initState();
+  }
+
   void initFirebase(BuildContext context) async {
     NotificationService().setUp();
 

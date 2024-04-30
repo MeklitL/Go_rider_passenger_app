@@ -16,11 +16,13 @@ import 'package:geocoding/geocoding.dart' as geo;
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_rider/app/helper/booking_state_helper.dart';
+import 'package:go_rider/app/helper/dynamic_link_helper.dart';
 import 'package:go_rider/ui/features/dashboard/data/location_model.dart';
 import 'package:go_rider/ui/features/dashboard/data/rider_model.dart';
 import 'package:go_rider/ui/features/dashboard/presentation/view/widget/rating_screen.dart';
 import 'package:go_rider/ui/shared/shared_widget/custom_snackbar.dart';
 import 'package:go_rider/utils/app_constant/app_color.dart';
+import 'package:go_rider/utils/screen_utils/screen_size.dart';
 import 'package:go_rider/utils/utils/utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
@@ -33,6 +35,7 @@ import 'package:go_rider/ui/features/dashboard/presentation/bloc/home_bloc_state
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:share_plus/share_plus.dart';
 import 'package:uuid/uuid.dart';
 
 var log = getLogger('Home_bloc');
@@ -102,6 +105,8 @@ class HomePageBloc extends Bloc<HomePageBlocEvent, HomePageState> {
     on<StoreFcmToken>((event, emit) async {
       await storeFcmToken();
     });
+
+    on<InviteFriend>((event, emit) async => inviteFriend(event.context));
 
     on<Logout>((event, emit) => reset(event.context));
 
@@ -240,7 +245,7 @@ class HomePageBloc extends Bloc<HomePageBlocEvent, HomePageState> {
 
     emit(state.copyWith(markers: markers));
   }
- 
+
   Future<List<LatLng>> _getPolyPointCordinate(LatLng destination) async {
     emit(state.copyWith(plineCoordinate: []));
 
@@ -507,5 +512,29 @@ class HomePageBloc extends Bloc<HomePageBlocEvent, HomePageState> {
     locationStream!.cancel();
     FirebaseAuth.instance.signOut();
     context.replace('/login');
+  }
+
+  inviteFriend(BuildContext context) async {
+    log.w('Preparing to generate link to share');
+    await DynamicLinkHelper()
+        .generateDynamicLink(
+      pathName: 'invite-friend',
+      title: 'friends',
+      description: 'kk',
+      // imageUrl: state.contestFeed!.contest!.contestCoverImageData!.imageName!,
+    )
+        .then((link) {
+      Share.share(
+        link,
+        sharePositionOrigin: Rect.fromLTWH(
+          0,
+          0,
+          screenSize(context).width,
+          screenSize(context).height / 2,
+        ),
+      );
+      log.wtf('Generated link to share: $link');
+      return link;
+    });
   }
 }
