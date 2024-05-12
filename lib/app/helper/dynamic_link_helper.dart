@@ -81,6 +81,6 @@ class DynamicLinkHelper {
           NavigationService.navigatorKey.currentContext?.go('/homePage');
         }
       }
-    }
+    } else {}
   }
 }

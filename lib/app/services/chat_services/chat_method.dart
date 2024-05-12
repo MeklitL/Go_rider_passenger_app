@@ -98,8 +98,8 @@ class ChatsMethod {
     await _addToContacts(
         senderId: sender.userId!, receiverId: receiver.userId!);
 
-    await _notifyUser(
-        sender: sender.userName!, message: message.message!, to: fcm);
+    // await _notifyUser(
+    //     sender: sender.userName!, message: message.message!, to: fcm);
   }
 
   _notifyUser(
